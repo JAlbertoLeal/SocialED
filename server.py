@@ -14,7 +14,6 @@ def index():
 def home():
     return app.send_static_file('home.html')
 
-
 @app.route('/login', methods=['GET'])
 def login():
     return app.send_static_file('login.html')

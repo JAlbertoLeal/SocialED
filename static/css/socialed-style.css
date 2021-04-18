@@ -4,7 +4,7 @@
 #container {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 12px;
-  font-color: white; 
+  color: white; 
   padding-left: 20px;
   background-color: rgba(76, 76, 240, 0.842); 
   margin: 10px;
@@ -26,6 +26,7 @@ form {
   border: 2px solid black;}
 
 label {
+  background-color: coral;
 }
 
 body{
