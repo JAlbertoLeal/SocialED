@@ -9,18 +9,17 @@
   margin: 10px;
 }
 a:link{
- color:black;
+ color:rgb(29, 26, 26);
 
  }
 a:hover {
   color:green;
 }
 h1 {
-   color:blue;
-   font-size:20pt;
-
-
+   color:red;
+   font-size:50px
 }
+
 form {
 
 
