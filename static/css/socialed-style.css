@@ -3,10 +3,12 @@
 
 #container {
   font-family: Helvetica, Geneva, Arial, sans-serif;
+  font-size: medium;
   padding-left: 20px;
-  background-color: #FFFFFF; /* beige */
-  font-color: #2A2929; /* dark grey */
+  background-color: blue; 
+  font-color: white; 
   margin: 10px;
+  border: black solid 10px;
 }
 a:link{
  color:rgb(29, 26, 26);
@@ -16,7 +18,7 @@ a:hover {
   color:green;
 }
 h1 {
-   color:red;
+   color:white;
    font-size:50px
 }
 
