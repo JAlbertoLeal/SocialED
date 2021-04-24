@@ -5,40 +5,35 @@
   font-family: Helvetica, Geneva, Arial, sans-serif;
   padding-left: 20px;
   background-color: #FFFFFF; /* beige */
-  font-color: #2A2929; /* dark grey */
+  color: #2A2929; /* dark grey */
   margin: 10px;
 }
 a:link{
- color:black;
-
+  background-color: lightgray;
+  color: dodgerblue;
+  font-weight: bold;
+  padding: 2px;
+  text-decoration: none;
  }
 a:hover {
-  color:green;
+  color: orange;
+  background-color:lemonchiffon;
 }
 h1 {
-   color:blue;
-   font-size:20pt;
-
-
+  color: lightseagreen;
+  font-size: 20pt;
 }
 form {
-
-
-
-
-
+  width: fit-content;
+  padding: 10px;
+  border: 3px solid lightseagreen;
+  background-color: honeydew;
 }
 label {
-
-
-
-
-
+  font-weight: bold;
+  color: lightseagreen;
 }
 .inputs {
-
-
-
-
+  padding: 10px;
 }
 
