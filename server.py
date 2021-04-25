@@ -40,6 +40,7 @@ def processLogin():
        return '<!DOCTYPE html> ' \
            '<html lang="es">' \
            '<head>' \
+           '<link href="static/css/socialed-style.css" rel="stylesheet" type="text/css"/>' \
            '<title> Home - SocNet </title>' \
            '</head>' \
            '<body> <div id ="container">' \
