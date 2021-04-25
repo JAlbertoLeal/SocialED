@@ -9,36 +9,28 @@
   margin: 10px;
 }
 a:link{
- color:black;
-
+ background-color: gray;
+ color:darkcyan;
+ font-weight: bold;
  }
 a:hover {
-  color:green;
+  color:purple;
+  background-color: yellowgreen;
 }
 h1 {
-   color:blue;
-   font-size:20pt;
-
-
+   color: burlywood;
+   font-size: 20pt;
 }
 form {
-
-
-
-
-
+width: fit-content;
+padding: 15px;
+border: 2px solid lightcoral;
+background-color: beige;
 }
 label {
-
-
-
-
-
+font-weight: bold;
+color: burlywood;
 }
 .inputs {
-
-
-
-
+padding: 15px;
 }
-
