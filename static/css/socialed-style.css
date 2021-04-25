@@ -5,7 +5,7 @@
   font-family: Helvetica, Geneva, Arial, sans-serif;
   padding-left: 20px;
   background-color: #FFFFFF; /* beige */
-  font-color: #2A2929; /* dark grey */
+  color: #2A2929; /* dark grey */
   margin: 10px;
 }
 a:link{
