@@ -10,16 +10,23 @@
   margin: 10px;
   border: black solid 10px;
 }
-a:link{
- color:white;
 
+a:link{
+  background-color: lightgray;
+  color: dodgerblue;
+  font-weight: bold;
+  padding: 2px;
+  text-decoration: none;
  }
+
 a:hover {
-  color:coral;
+  color: orange;
+  background-color:lemonchiffon;
 }
+
 h1 {
-   color:white;
-   font-size:50px
+  color: lightseagreen;
+  font-size: 20pt;
 }
 
 form {
