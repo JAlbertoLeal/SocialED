@@ -30,10 +30,15 @@ h1 {
 }
 
 form {
-  border: 2px solid black;}
+width: fit-content;
+padding: 15px;
+border: 2px solid lightcoral;
+background-color: beige;
+}
 
 label {
-  background-color: coral;
+font-weight: bold;
+color: burlywood;
 }
 
 body{
@@ -54,4 +59,3 @@ unicode-bidi: embed;
  height:25px;
  padding-left:3px; 
 }
-
