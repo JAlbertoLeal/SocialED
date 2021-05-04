@@ -14,7 +14,6 @@ def index():
 def home():
     return app.send_static_file('home.html')
 
-
 @app.route('/login', methods=['GET'])
 def login():
     return app.send_static_file('login.html')
@@ -66,6 +65,7 @@ def processSignup():
        return '<!DOCTYPE html> ' \
            '<html lang="es">' \
            '<head>' \
+           '<link href="static/css/socialed-style.css" rel="stylesheet" type="text/css"/>' \
            '<title> Inicio - SocialED </title>' \
            '</head>' \
            '<body> <div id ="container">' \
@@ -93,6 +93,7 @@ def processHome():
 	return '<!DOCTYPE html> ' \
            '<html lang="es">' \
            '<head>' \
+           '<link href="static/css/socialed-style.css" rel="stylesheet" type="text/css"/>' \
            '<title> Inicio - SocialED </title>' \
            '</head>' \
            '<body> <div id="container">' \
@@ -115,4 +116,4 @@ def processHome():
 #app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 # start the server with the 'run()' method
 if __name__ == '__main__':
-    app.run(debug=True, port=80)
+    app.run(debug=True, port=55555)
