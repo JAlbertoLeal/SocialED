@@ -40,7 +40,6 @@ def process_missingFields(campos, next_page):
     return render_template("missingFields.html", inputs=campos, next=next_page)
 
 
-
 @app.route('/home.html', methods=['GET'])
 def home():
     return render_template("home.html")
@@ -286,7 +285,7 @@ def get_all_users(user):
     user_list.remove(user)
     return user_list
 
-#app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 # start the server with the 'run()' method
 if __name__ == '__main__':
     app.run(debug=True, port=55555)
