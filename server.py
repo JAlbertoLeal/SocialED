@@ -248,7 +248,7 @@ def process_logout():
     session.pop('user_name', None)
     return redirect(url_for('index'))
 
-"""
+
 @app.route('/processLogin', methods=['GET', 'POST'])
 def processLogin():
        missing = []
@@ -336,7 +336,7 @@ def processHome():
             		'</div></div>' \
            '</body>' \
            '</html>'
-"""
+
 
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
