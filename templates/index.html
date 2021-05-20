@@ -1,12 +1,31 @@
-{% extends "base.html" %}
-{% block titulo %}
-SocialED
-{% endblock %}
-{% block contenido %}
-<h1>Hola, Has llegado hasta SocialED</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <link href="static/css/socialed-style.css" rel="stylesheet" type="text/css"/>
+    <title>SocialED</title>
+</head>
+<body>
+<div id="container">
+    <a href="/">SocialED </a>|
+    {% if logged %}
+    <a href="home">Inicio</a> |
+    <a href="profile">
+        Perfil
+    </a>
+    |
+    <a href="logout">
+        Salir ({{ nickname }})
+    </a>
+    {% else %}
+    <a href="login">Acceso </a>| <a href="signup">Registro</a>
+    {% endif %}
+    <h1>Hola {{ nickname }} has llegado hasta SocialED</h1>
     <div>
         <p>Escoge <b>Registro</b> si eres un nuevo usuario</p>
         <p>Elige <b>Acceso</b> si eres nuevo en SocialED</p>
         <p>Selecciona <b>Inicio</b> comenzar a realizar aportaciones</p>
     </div>
-{% endblock %}
+</div>
+</body>
+</html>
