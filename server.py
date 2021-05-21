@@ -1,4 +1,5 @@
 # -*- coding: iso-8859-15 -*-
+# Grupo 5
 
 from flask import Flask, request, render_template, session, redirect, url_for
 import os.path
