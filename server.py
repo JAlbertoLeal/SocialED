@@ -8,30 +8,10 @@ import json
 from time import time
 import sys
 
-<<<<<<< HEAD
-from flask import Flask, request, render_template, session, redirect, url_for
-import os.path
-from os import listdir
-import json
-from time import time
-import sys
-=======
->>>>>>> brillante
 app = Flask(__name__)
 
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
-<<<<<<< HEAD
-# este codigo controla los errores de campos ausentes
-def process_missingFields(campos, next_page):
-    """
-    :param campos: Lista de Campos que faltan
-    :param next_page: ruta al pulsar botÃ³n continuar
-    :return: plantilla generada
-    """
-    return render_template("missingFields.html", inputs=campos, next=next_page)
-=======
->>>>>>> brillante
 
 def load_user(email, passwd):
     """
@@ -199,7 +179,7 @@ def home():
     return render_template('home.html', logged=True, nickname=session['user_name'], messages=messages,
                            friends_messages=sorted(get_friends_messages_with_authors(), key=lambda x: x[1]))
 
-<<<<<<< HEAD
+
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     """
@@ -219,29 +199,7 @@ def profile():
                                passwd=session['password'], friends=session['friends'],
                                all_users=get_all_users(session['email']))
 
-=======
 
-@app.route('/profile', methods=['GET', 'POST'])
-def profile():
-    """
-    Procesa '/profile' url (smuestra datos del usuario)
-    :return: Si el usuario está logueado edita su perfil
-    """
-    if 'user_name' not in session:
-        return process_error("you must be logged to use the app / debe registrarse antes de usar la aplicacion",
-                             url_for("login"))
-    if request.method == 'POST':
-        session['user_name'] = request.form['nickname']
-        session['password'] = request.form['passwd']
-        session['friends'] = [str.strip(str(friend)) for friend in request.form.getlist('friends')]
-        return redirect(url_for("home"))
-    else:  # The http GET method was used
-        return render_template("edit_profile.html", nickname=session['user_name'], email=session['email'],
-                               passwd=session['password'], friends=session['friends'],
-                               all_users=get_all_users(session['email']))
-
-
->>>>>>> brillante
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -267,11 +225,7 @@ def login():
 def signup():
     """
     '/signup' url (crear un usuario nuevo)
-<<<<<<< HEAD
     :return: Primero renderiza la pï¿½gina vacia. Despuï¿½s los datos.
-=======
-    :return: Primero renderiza la página vacia. Después los datos.
->>>>>>> brillante
     """
     if request.method == 'POST':
         return process_signup()
@@ -279,18 +233,11 @@ def signup():
     # The http GET method was used
     return app.send_static_file('signup.html')
 
-<<<<<<< HEAD
-@app.route('/logout', methods=['GET', 'POST'])
-def process_logout():
-    """
-    '/logout' url (salir de la sesiï¿½n)
-=======
 
 @app.route('/logout', methods=['GET', 'POST'])
 def process_logout():
     """
-    '/logout' url (salir de la sesión)
->>>>>>> brillante
+    '/logout' url (salir de la sesiï¿½n)
     :return: pagina inicial
     """
     save_current_user()
@@ -298,99 +245,6 @@ def process_logout():
     return redirect(url_for('index'))
 
 
-<<<<<<< HEAD
-@app.route('/processLogin', methods=['GET', 'POST'])
-def processLogin():
-       missing = []
-       fields = ['email', 'passwd', 'login_submit']
-       for field in fields:
-              value = request.form.get(field, None)
-              if value is None:
-                  missing.append(field)
-       if missing:
-              return process_missingFields(missing, "/login")
-
-
-       return '<!DOCTYPE html> ' \
-           '<html lang="es">' \
-           '<head>' \
-           '<link href="static/css/socialed-style.css" rel="stylesheet" type="text/css"/>' \
-           '<title> Home - SocNet </title>' \
-           '</head>' \
-           '<body> <div id ="container">' \
-		   '<a href="/"> SocNet </a> | <a href="home"> Home </a> | <a href="login"> Log In </a> | <a href="signup"> Sign Up </a>' \
-           '<h1>Data from Form: Login</h1>' \
-	       '<form><label>email: ' + request.form['email'] + \
-	       '</label><br><label>passwd: ' + request.form['passwd'] + \
-           '</label></form></div></body>' \
-           '</html>'
-
-
-@app.route('/processSignup', methods=['GET', 'POST'])
-def processSignup():
-       missing = []
-       fields = ['nickname', 'email', 'passwd','confirm', 'signup_submit']
-       for field in fields:
-              value = request.form.get(field, None)
-              if value is None:
-                     missing.append(field)
-       if missing:
-              return process_missingFields(missing, "/signup")
-
-       return '<!DOCTYPE html> ' \
-           '<html lang="es">' \
-           '<head>' \
-           '<link href="static/css/socialed-style.css" rel="stylesheet" type="text/css"/>' \
-           '<title> Inicio - SocialED </title>' \
-           '</head>' \
-           '<body> <div id ="container">' \
-		   '<a href="/"> SocialED </a> | <a href="home"> Home </a> | <a href="login"> Log In </a> | <a href="signup"> Sign Up </a>' \
-           '<h1>Data from Form: Sign Up</h1>' \
-           '<form><label>Nickame: ' + request.form['nickname'] + \
-	       '</label><br><label>email: ' + request.form['email'] + \
-	       '</label><br><label>passwd: ' + request.form['passwd'] + \
-	       '</label><br><label>confirm: ' + request.form['confirm'] + \
-           '</label></form></div></body>' \
-           '</html>'
-
-
-@app.route('/processHome', methods=['GET', 'POST'])
-def processHome():
-	missing = []
-	fields = ['message', 'last', 'post_submit']
-	for field in fields:
-		value = request.form.get(field, None)
-		if value is None:
-			missing.append(field)
-	if missing:
-		return process_missingFields(missing, "/home")
-
-	return '<!DOCTYPE html> ' \
-           '<html lang="es">' \
-           '<head>' \
-           '<link href="static/css/socialed-style.css" rel="stylesheet" type="text/css"/>' \
-           '<title> Inicio - SocialED </title>' \
-           '</head>' \
-           '<body> <div id="container">' \
-		   '<a href="/"> SocialED </a> | <a href="home"> Home </a> | <a href="login"> Log In </a> | <a href="signup"> Sign Up </a>' \
-           '<h1>Hi, How are you?</h1>' \
-                	'<form action="processHome" method="post" name="home"> ' \
-			'<label for="message">Say something:</label><div class="inputs">' \
-			'<input id="message" maxlength="128" name="message" size="80" type="text" required="true" value=""/>' \
-			'<input id="last" type="hidden" name="last" required="true" value="' + request.form['last'] + '<br>'+ request.form['message'] + '">' \
-	                 '</div>' \
-                    	'<div class="inputs">' \
-                        '<input id="post_submit" name="post_submit" type="submit" value="Post!"/>' \
-           		'<br><br>Previous Posts: <br>' + request.form['last'] + '<br>' +request.form['message'] + \
-                	'</form>' \
-            		'</div></div>' \
-           '</body>' \
-           '</html>'
-
-
-
-app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-=======
 #
 #  funciones internas auxiliares
 #
@@ -495,7 +349,7 @@ def create_user_file(name, email, passwd, passwd_confirmation):
 
 def get_friends_messages_with_authors():
     """
-    Obtiene los mensajes de los amigos  (del usuario de la sesión)
+    Obtiene los mensajes de los amigos  (del usuario de la sesiï¿½n)
     :return: Lista de mensajes, formato (usuario, marca tiempo, mensaje)
     """
     message_and_authors = []
@@ -535,10 +389,9 @@ def get_all_users(user):
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'  # this string is used for security reasons (see CSRF)
 # todo: <-- explicar CSRF
 
->>>>>>> brillante
 # start the server with the 'run()' method
 if __name__ == '__main__':
-    if sys.platform == 'darwin' or sys.platform == 'linux':  # diferentes puertos según el sistema (para evitar permisos)
+    if sys.platform == 'darwin' or sys.platform == 'linux':  # diferentes puertos segï¿½n el sistema (para evitar permisos)
         app.run(debug=True, port=8080)
     else:
         app.run(debug=True, port=80)
