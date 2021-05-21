@@ -1,5 +1,5 @@
 # -*- coding: iso-8859-15 -*-
-
+__author__ = 'Litterman'
 
 from flask import Flask, request, render_template, session, redirect, url_for
 import os.path
@@ -7,10 +7,21 @@ from os import listdir
 import json
 from time import time
 import sys
+
+<<<<<<< HEAD
+from flask import Flask, request, render_template, session, redirect, url_for
+import os.path
+from os import listdir
+import json
+from time import time
+import sys
+=======
+>>>>>>> brillante
 app = Flask(__name__)
 
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
+<<<<<<< HEAD
 # este codigo controla los errores de campos ausentes
 def process_missingFields(campos, next_page):
     """
@@ -19,6 +30,8 @@ def process_missingFields(campos, next_page):
     :return: plantilla generada
     """
     return render_template("missingFields.html", inputs=campos, next=next_page)
+=======
+>>>>>>> brillante
 
 def load_user(email, passwd):
     """
@@ -186,6 +199,7 @@ def home():
     return render_template('home.html', logged=True, nickname=session['user_name'], messages=messages,
                            friends_messages=sorted(get_friends_messages_with_authors(), key=lambda x: x[1]))
 
+<<<<<<< HEAD
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     """
@@ -205,6 +219,29 @@ def profile():
                                passwd=session['password'], friends=session['friends'],
                                all_users=get_all_users(session['email']))
 
+=======
+
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    """
+    Procesa '/profile' url (smuestra datos del usuario)
+    :return: Si el usuario está logueado edita su perfil
+    """
+    if 'user_name' not in session:
+        return process_error("you must be logged to use the app / debe registrarse antes de usar la aplicacion",
+                             url_for("login"))
+    if request.method == 'POST':
+        session['user_name'] = request.form['nickname']
+        session['password'] = request.form['passwd']
+        session['friends'] = [str.strip(str(friend)) for friend in request.form.getlist('friends')]
+        return redirect(url_for("home"))
+    else:  # The http GET method was used
+        return render_template("edit_profile.html", nickname=session['user_name'], email=session['email'],
+                               passwd=session['password'], friends=session['friends'],
+                               all_users=get_all_users(session['email']))
+
+
+>>>>>>> brillante
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -230,7 +267,11 @@ def login():
 def signup():
     """
     '/signup' url (crear un usuario nuevo)
+<<<<<<< HEAD
     :return: Primero renderiza la pï¿œgina vacia. Despuï¿œs los datos.
+=======
+    :return: Primero renderiza la página vacia. Después los datos.
+>>>>>>> brillante
     """
     if request.method == 'POST':
         return process_signup()
@@ -238,10 +279,18 @@ def signup():
     # The http GET method was used
     return app.send_static_file('signup.html')
 
+<<<<<<< HEAD
 @app.route('/logout', methods=['GET', 'POST'])
 def process_logout():
     """
     '/logout' url (salir de la sesiï¿œn)
+=======
+
+@app.route('/logout', methods=['GET', 'POST'])
+def process_logout():
+    """
+    '/logout' url (salir de la sesión)
+>>>>>>> brillante
     :return: pagina inicial
     """
     save_current_user()
@@ -249,6 +298,7 @@ def process_logout():
     return redirect(url_for('index'))
 
 
+<<<<<<< HEAD
 @app.route('/processLogin', methods=['GET', 'POST'])
 def processLogin():
        missing = []
@@ -340,6 +390,155 @@ def processHome():
 
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+=======
+#
+#  funciones internas auxiliares
+#
+
+def process_signup():
+    faltan = []
+    campos = ['nickname', 'email', 'passwd', 'confirm', 'signup_submit']
+    for campo in campos:
+        value = request.form.get(campo, None)
+        if value is None or value == '':
+            faltan.append(campo)
+    if faltan:
+        return render_template("missingFields.html", inputs=faltan, next=url_for("signup"))
+    return create_user_file(request.form['nickname'], request.form['email'], request.form['passwd'],
+                            request.form['confirm'])
+
+
+def process_error(message, next_page):
+    """
+
+    :param message:
+    :param next_page:
+    :return:
+    """
+    return render_template("error.html", error_message=message, next=next_page)
+
+
+def load_user(email, passwd):
+    """
+    Carga usuarios.
+    Comprueba que coincide el email
+    :param email: user id
+    :param passwd: password
+    :return: pagina inicio  si el usuario existe y el pass es correcto
+    """
+    file_path = os.path.join(SITE_ROOT, "data/", email)
+    if not os.path.isfile(file_path):
+        return process_error("User not found / No existe un usuario con ese nombre", url_for("login"))
+    with open(file_path, 'r') as f:
+        data = json.load(f)
+    if data['password'] != passwd:
+        return process_error("Incorrect password / la clave no es correcta", url_for("login"))
+    session['user_name'] = data['user_name']
+    session['messages'] = data['messages']
+    session['password'] = passwd
+    session['email'] = email
+    session['friends'] = data['friends']
+    return redirect(url_for("home"))
+
+
+def save_current_user():
+    datos = {
+        "user_name": session["user_name"],
+        "password": session['password'],
+        "messages": session['messages'],  # lista de tuplas (time_stamp, mensaje)
+        "email": session['email'],
+        "friends": session['friends']
+    }
+    file_path = os.path.join(SITE_ROOT, "data/", session['email'])
+    with open(file_path, 'w') as f:
+        json.dump(datos, f)
+
+
+def create_user_file(name, email, passwd, passwd_confirmation):
+    """
+    Crea el fichero (en /data ) el nombre del fichero es email.
+    Si ya existe el fichero error.
+    Si no coincide el pass error.
+    :param name: Nombre o nickname del usuario
+    :param email: correo, luego se usa para almacenar datos
+    :param passwd: password
+    :param passwd_confirmation: repite el pass
+    :return: Si no hay errores, muestra la pagina home
+    """
+
+    directory = os.path.join(SITE_ROOT, "data")
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    file_path = os.path.join(SITE_ROOT, "data/", email)
+    if os.path.isfile(file_path):
+        return process_error(
+            "The email is already used, you must select a different email / Ya existe un usuario con ese nombre",
+            url_for("signup"))
+    if passwd != passwd_confirmation:
+        return process_error("Your password and confirmation password do not match / Las claves no coinciden",
+                             url_for("signup"))
+    datos = {
+        "user_name": name,
+        "password": passwd,
+        "messages": [],
+        "friends": []
+    }
+    with open(file_path, 'w') as f:
+        json.dump(datos, f)
+    session['user_name'] = name
+    session['password'] = passwd
+    session['messages'] = []
+    session['friends'] = []
+    session['email'] = email
+    return redirect(url_for("home"))
+
+
+def get_friends_messages_with_authors():
+    """
+    Obtiene los mensajes de los amigos  (del usuario de la sesión)
+    :return: Lista de mensajes, formato (usuario, marca tiempo, mensaje)
+    """
+    message_and_authors = []
+    for friend in session['friends']:
+        texts = load_messages_from_user(friend)
+        message_and_authors.extend(texts)
+    return message_and_authors
+
+
+def load_messages_from_user(user):
+    """
+    Obtiene todos los mensajes de un usuario
+    :param user: el usuario
+    :return: todos los mensajes publicados, formato (usuario, marca tiempo, mensaje)
+    """
+    file_path = os.path.join(SITE_ROOT, "data/", user)
+    if not os.path.isfile(file_path):
+        return []
+    with open(file_path, 'r') as f:
+        data = json.load(f)
+    messages_with_author = [(data["user_name"], message[0], message[1]) for message in data["messages"]]
+    return messages_with_author
+
+
+def get_all_users(user):
+    """
+    Obtienes los amigos de un usuario (parameter)
+    :param user: usuario actual
+    :return: Lista de usuarios amigos del usuario actual
+    """
+    dir_path = os.path.join(SITE_ROOT, "data/")
+    user_list = listdir(dir_path)
+    user_list.remove(user)
+    return user_list
+
+
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'  # this string is used for security reasons (see CSRF)
+# todo: <-- explicar CSRF
+
+>>>>>>> brillante
 # start the server with the 'run()' method
 if __name__ == '__main__':
-    app.run(debug=True, port=55555)
+    if sys.platform == 'darwin' or sys.platform == 'linux':  # diferentes puertos según el sistema (para evitar permisos)
+        app.run(debug=True, port=8080)
+    else:
+        app.run(debug=True, port=80)
