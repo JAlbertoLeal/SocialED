@@ -1,5 +1,4 @@
 # -*- coding: iso-8859-15 -*-
-__author__ = 'Litterman'
 
 from flask import Flask, request, render_template, session, redirect, url_for
 import os.path
