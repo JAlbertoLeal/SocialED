@@ -1,5 +1,7 @@
 # -*- coding: iso-8859-15 -*-
+
 # Grupo 5
+
 
 from flask import Flask, request, render_template, session, redirect, url_for
 import os.path
@@ -220,6 +222,7 @@ def create_user_file(name, email, passwd, passwd_confirmation):
 
 def get_friends_messages_with_authors():
     """
+
     Obtiene los mensajes de los amigos  (del usuario de la sesi�n)
     :return: Lista de mensajes, formato (usuario, marca tiempo, mensaje)
     """
@@ -262,7 +265,9 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'  # this string is used for sec
 
 # start the server with the 'run()' method
 if __name__ == '__main__':
+
     if sys.platform == 'darwin' or sys.platform == 'linux':  # diferentes puertos seg�n el sistema (para evitar permisos)
+
         app.run(debug=True, port=8080)
     else:
         app.run(debug=True, port=80)
