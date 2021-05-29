@@ -1,5 +1,7 @@
 # -*- coding: iso-8859-15 -*-
-__author__ = 'Litterman'
+
+# Grupo 5
+
 
 from flask import Flask, request, render_template, session, redirect, url_for
 import os.path
@@ -55,7 +57,7 @@ def home():
 def profile():
     """
     Procesa '/profile' url (smuestra datos del usuario)
-    :return: Si el usuario está logueado edita su perfil
+    :return: Si el usuario estï¿œ logueado edita su perfil
     """
     if 'user_name' not in session:
         return process_error("you must be logged to use the app / debe registrarse antes de usar la aplicacion",
@@ -96,7 +98,7 @@ def login():
 def signup():
     """
     '/signup' url (crear un usuario nuevo)
-    :return: Primero renderiza la página vacia. Después los datos.
+    :return: Primero renderiza la pï¿œgina vacia. Despuï¿œs los datos.
     """
     if request.method == 'POST':
         return process_signup()
@@ -108,7 +110,7 @@ def signup():
 @app.route('/logout', methods=['GET', 'POST'])
 def process_logout():
     """
-    '/logout' url (salir de la sesión)
+    '/logout' url (salir de la sesiï¿œn)
     :return: pagina inicial
     """
     save_current_user()
@@ -220,7 +222,8 @@ def create_user_file(name, email, passwd, passwd_confirmation):
 
 def get_friends_messages_with_authors():
     """
-    Obtiene los mensajes de los amigos  (del usuario de la sesión)
+
+    Obtiene los mensajes de los amigos  (del usuario de la sesiï¿œn)
     :return: Lista de mensajes, formato (usuario, marca tiempo, mensaje)
     """
     message_and_authors = []
@@ -262,7 +265,9 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'  # this string is used for sec
 
 # start the server with the 'run()' method
 if __name__ == '__main__':
-    if sys.platform == 'darwin' or sys.platform == 'linux':  # diferentes puertos según el sistema (para evitar permisos)
+
+    if sys.platform == 'darwin' or sys.platform == 'linux':  # diferentes puertos segï¿œn el sistema (para evitar permisos)
+
         app.run(debug=True, port=8080)
     else:
         app.run(debug=True, port=80)
